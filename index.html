@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#100923" />
+  <title>مونلایت سیتی | Moonlight City</title>
+  <style>
+    @font-face {
+      font-family: "IRANSansX";
+      src: url("./IRANSansXFaNum-Regular.ttf") format("truetype");
+      font-weight: 400;
+      font-style: normal;
+      font-display: swap;
+    }
+    :root {
+      --bg: #0b0618;
+      --purple: #9d5cff;
+      --purple-light: #d9b8ff;
+      --cyan: #bca0ff;
+      --text: #f8f3ff;
+      --muted: #c7badc;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      overflow-x: hidden;
+      color: var(--text);
+      font-family: "IRANSansX", Tahoma, sans-serif;
+      background:
+        radial-gradient(ellipse at 15% 18%, rgba(124, 58, 237, .28), transparent 34%),
+        radial-gradient(ellipse at 85% 25%, rgba(168, 85, 247, .2), transparent 30%),
+        radial-gradient(ellipse at 50% 100%, rgba(91, 33, 182, .3), transparent 45%),
+        linear-gradient(135deg, #090512 0%, #16092d 48%, #090617 100%);
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: .32;
+      background-image: radial-gradient(#e5d5ff 1px, transparent 1.5px);
+      background-size: 83px 83px;
+      mask-image: linear-gradient(to bottom, black, transparent 85%);
+    }
+    a { color: inherit; text-decoration: none; }
+    .topbar {
+      position: relative;
+      z-index: 2;
+      width: min(1180px, calc(100% - 40px));
+      margin: 18px auto 0;
+      padding: 13px 18px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      border: 1px solid rgba(218, 194, 255, .15);
+      border-radius: 20px;
+      background: rgba(13, 7, 28, .68);
+      backdrop-filter: blur(18px);
+      box-shadow: 0 12px 50px rgba(0,0,0,.2);
+    }
+    .brand { display: flex; align-items: center; gap: 11px; font-weight: 700; white-space: nowrap; }
+    .brand-mark {
+      display: grid; place-items: center; width: 40px; height: 40px; border-radius: 13px;
+      background: linear-gradient(145deg, #d9b8ff, #8b5cf6 70%);
+      color: #17082b; font-size: 21px; box-shadow: 0 0 25px rgba(168,85,247,.4);
+    }
+    .brand small { display: block; color: #bba8d7; font-size: 10px; font-weight: 400; letter-spacing: 1.5px; direction:ltr; }
+    .nav { display: flex; align-items: center; gap: 25px; color: #d8cde8; font-size: 12px; }
+    .nav a:hover { color: white; }
+    .status { display:flex; align-items:center; gap:8px; color:#cdb7ee; font-size:11px; white-space:nowrap; }
+    .status-dot { width:10px; height:10px; border-radius:50%; background:#4ade80; box-shadow:0 0 12px #4ade80; flex:0 0 auto; }
+    .pulse-heart { animation: heartbeat 1.15s ease-in-out infinite; transform-origin:center; }
+    @keyframes heartbeat { 0%, 100% { transform:scale(1); box-shadow:0 0 0 0 rgba(74,222,128,.65), 0 0 12px #4ade80; } 14% { transform:scale(1.28); box-shadow:0 0 0 4px rgba(74,222,128,.13), 0 0 18px #4ade80; } 28% { transform:scale(1); } 42% { transform:scale(1.18); box-shadow:0 0 0 6px rgba(74,222,128,.08), 0 0 16px #4ade80; } 70% { transform:scale(1); box-shadow:0 0 0 0 rgba(74,222,128,0), 0 0 12px #4ade80; } }
+
+    /* ===== انیمیشن توپ‌های پس‌زمینه ===== */
+    @keyframes float {
+      0%   { transform: translate(0, 0) scale(1); }
+      25%  { transform: translate(14px, -22px) scale(1.04); }
+      50%  { transform: translate(-10px, -38px) scale(.97); }
+      75%  { transform: translate(-18px, -14px) scale(1.03); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    @keyframes floatAlt {
+      0%   { transform: translate(0, 0) scale(1); }
+      30%  { transform: translate(-20px, 26px) scale(1.05); }
+      60%  { transform: translate(16px, 40px) scale(.96); }
+      100% { transform: translate(0, 0) scale(1); }
+    }
+    .orb { position:absolute; border-radius:50%; filter:blur(1px); pointer-events:none; will-change:transform; }
+    .orb.one {
+      width:300px; height:300px; top:7%; right:-95px;
+      background:radial-gradient(circle at 35% 30%, rgba(221,197,255,.36), rgba(139,92,246,.08) 58%, transparent 72%);
+      animation: float 11s ease-in-out infinite;
+    }
+    .orb.two {
+      width:240px; height:240px; bottom:4%; left:-85px;
+      background:radial-gradient(circle, rgba(168,85,247,.19), transparent 70%);
+      animation: floatAlt 14s ease-in-out infinite;
+    }
+
+    .hero {
+      position: relative; z-index: 1; min-height: calc(100vh - 85px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 78px 20px 90px; text-align: center;
+    }
+    .hero-content { width:min(760px, 100%); position:relative; }
+    .gem-row { display:flex; justify-content:center; align-items:center; gap:10px; margin-bottom:24px; }
+    .gem { width:15px; height:15px; transform:rotate(45deg); border:1px solid #e7d4ff; background:linear-gradient(135deg,#f2e7ff,#9b6aff); box-shadow:0 0 22px rgba(192,132,252,.65); }
+    .gem.main { width:26px; height:26px; background:linear-gradient(135deg,#f1ddff,#8b5cf6); }
+    .eyebrow {
+      display:inline-flex; align-items:center; gap:9px; padding:8px 16px; border-radius:999px;
+      border:1px solid rgba(202,170,255,.25); background:rgba(124,58,237,.13);
+      color:#d8bfff; font-size:11px; letter-spacing:1.2px;
+    }
+    h1 { margin:22px 0 16px; font-size:clamp(32px, 5vw, 58px); line-height:1.5; font-weight:700; letter-spacing:-1.3px; }
+    h1 .gradient { color:transparent; background:linear-gradient(90deg,#f1e7ff 5%,#c9a4ff 47%,#a78bfa 85%); -webkit-background-clip:text; background-clip:text; }
+    .subtitle { max-width:620px; margin:0 auto; color:var(--muted); font-size:14px; line-height:2.2; }
+    .server-card {
+      width:min(460px, 100%); margin:32px auto 22px; padding:20px;
+      border:1px solid rgba(226,207,255,.22); border-radius:22px;
+      background:linear-gradient(135deg, rgba(255,255,255,.105), rgba(148,92,219,.07));
+      box-shadow:0 20px 70px rgba(0,0,0,.22), inset 0 1px rgba(255,255,255,.08);
+      backdrop-filter:blur(22px); -webkit-backdrop-filter:blur(22px);
+    }
+    .card-label { color:#cbb6e8; font-size:12px; margin-bottom:12px; }
+    .copy-field {
+      width:100%; display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding:13px 15px; border-radius:14px; border:1px solid rgba(199,163,255,.23);
+      background:rgba(12,6,27,.55); color:#f5edff; cursor:pointer; font:inherit;
+      transition:transform .2s, border-color .2s, background .2s;
+    }
+    .copy-field:hover { transform:translateY(-2px); border-color:rgba(216,180,254,.65); background:rgba(40,19,68,.65); }
+    .server-id { direction:ltr; font-size:20px; font-weight:700; letter-spacing:2px; color:#e4ccff; }
+    .copy-hint { display:flex; align-items:center; gap:7px; color:#c7b3e5; font-size:11px; }
+    .copy-icon { font-size:16px; }
+    .actions { display:flex; justify-content:center; align-items:stretch; flex-wrap:wrap; gap:12px; margin-top:23px; }
+    .btn {
+      min-height:49px; display:inline-flex; align-items:center; justify-content:center; gap:10px;
+      padding:0 24px; border-radius:13px; font:inherit; font-size:13px; font-weight:700;
+      transition:transform .2s, box-shadow .2s, background .2s;
+    }
+    .btn:hover { transform:translateY(-3px); }
+    .btn-primary {
+      color:#1b0a30; width:100%; max-width:360px;
+      background:linear-gradient(135deg,#e5cfff,#b58aff 55%,#9661f4); box-shadow:0 8px 30px rgba(139,92,246,.3);
+    }
+    .btn-primary:hover { box-shadow:0 12px 35px rgba(168,85,247,.48); }
+    .btn-secondary { color:#e7d7ff; border:1px solid rgba(209,178,255,.28); background:rgba(255,255,255,.045); }
+    .features { display:flex; justify-content:center; flex-wrap:wrap; gap:10px; margin-top:34px; }
+    .feature {
+      display:flex; align-items:center; gap:9px; padding:10px 14px; border-radius:12px;
+      color:#cdbde3; font-size:11px; border:1px solid rgba(203,178,242,.12); background:rgba(255,255,255,.035);
+    }
+    .feature span { color:#c4a1ff; font-size:15px; }
+    footer { position:relative; z-index:1; text-align:center; color:#88799e; font-size:10px; padding:0 20px 20px; }
+    #toast {
+      position:fixed; z-index:10; bottom:24px; left:50%; transform:translate(-50%, 20px);
+      padding:12px 18px; border-radius:13px; border:1px solid rgba(216,180,254,.25);
+      background:rgba(31,15,51,.92); color:#f4eaff; font-size:12px;
+      box-shadow:0 10px 35px rgba(0,0,0,.3); opacity:0; pointer-events:none;
+      transition:opacity .25s, transform .25s;
+    }
+    #toast.show { opacity:1; transform:translate(-50%,0); }
+    @media (max-width: 760px) {
+      .topbar { width:calc(100% - 24px); margin-top:12px; padding:11px 13px; }
+      .nav { display:none; }
+      .status { margin-right:auto; }
+      .hero { min-height:calc(100vh - 75px); padding:70px 18px 65px; }
+      h1 { letter-spacing:-.5px; }
+      .subtitle { font-size:13px; }
+      .server-card { padding:15px; }
+      .btn { flex:1 1 180px; }
+      .features { gap:8px; }
+      .feature { padding:9px 11px; }
+    }
+
+    /* ===== ریسپانسیو موبایل (صفحات کوچک‌تر از 600px) ===== */
+    @media (max-width: 600px) {
+      .topbar { margin-top:10px; padding:10px 12px; border-radius:16px; }
+      .brand { gap:8px; font-size:13px; }
+      .brand-mark { width:34px; height:34px; font-size:17px; border-radius:11px; }
+      .status { font-size:10px; gap:6px; }
+      .hero { padding:48px 14px 50px; min-height:calc(100vh - 70px); }
+      .hero-content { display:flex; flex-direction:column; align-items:center; }
+      .gem-row { margin-bottom:16px; }
+      h1 { font-size:clamp(26px, 8vw, 34px); margin:16px 0 12px; line-height:1.6; }
+      .subtitle { font-size:12.5px; line-height:2; }
+      .eyebrow { font-size:10px; padding:7px 13px; }
+      .server-card {
+        display:flex; flex-direction:column; gap:4px;
+        width:100%; margin:22px 0 16px; padding:15px 13px; border-radius:18px;
+      }
+      .server-id { font-size:17px; letter-spacing:1.5px; }
+      .copy-field { padding:11px 12px; }
+      .copy-hint { font-size:10px; }
+      .actions {
+        display:flex; flex-wrap:wrap; gap:10px; margin-top:16px;
+        flex-direction:column; align-items:stretch; width:100%;
+      }
+      .btn { width:100%; min-height:47px; font-size:13px; }
+      .btn-primary { max-width:none; }
+      .features { gap:7px; margin-top:24px; }
+      .feature { padding:8px 10px; font-size:10px; flex:1 1 calc(50% - 7px); justify-content:center; }
+      footer { font-size:9px; padding:0 12px 16px; }
+      #toast { width:calc(100% - 32px); text-align:center; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#" aria-label="مونلایت سیتی">
+      <span class="brand-mark">✦</span>
+      <span>مونلایت سیتی<small>MOONLIGHT CITY</small></span>
+    </a>
+    <nav class="nav" aria-label="منوی اصلی">
+      <a href="#home">خانه</a>
+      <a href="#server">اتصال به سرور</a>
+      <a href="#about">درباره ما</a>
+    </nav>
+    <div class="status"><span class="status-dot pulse-heart"></span> وضعیت سرور: آنلاین</div>
+  </header>
+
+  <main class="hero" id="home">
+    <div class="orb one"></div><div class="orb two"></div>
+    <section class="hero-content">
+      <div class="gem-row" aria-hidden="true"><i class="gem"></i><i class="gem main"></i><i class="gem"></i></div>
+      <div class="eyebrow">✧ &nbsp; MOON LIGHT CITY &nbsp; ✧</div>
+      <h1>به <span class="gradient">سرور مونلایت سیتی</span><br>خوش اومدی</h1>
+      <p class="subtitle">اگه دنبال یه سرور تیم اسپیک رایگان می‌گردی، اینجا جای توعه!</p>
+
+      <div class="server-card" id="server">
+        <div class="card-label">آیدی اتصال به سرور</div>
+        <button class="copy-field" id="copyId" type="button" aria-label="کپی آیدی TS85.IR">
+          <span class="server-id">TS85.IR</span>
+          <span class="copy-hint"><span class="copy-icon">▢</span><span id="copyLabel">برای کپی کلیک کن</span></span>
+        </button>
+        <div class="actions">
+          <a class="btn btn-primary" href="ts3server://ts85.ir/" id="joinButton">
+            <span>🚀</span> ورود به سرور
+          </a>
+        </div>
+      </div>
+
+    </section>
+  </main>
+  <footer>© مونلایت سیتی — داستان تو، از همین‌جا شروع می‌شه.</footer>
+  <div id="toast" role="status" aria-live="polite">آیدی سرور کپی شد!</div>
+
+  <script>
+    const serverId = "TS85.IR";
+    const copyField = document.getElementById("copyId");
+    const copyLabel = document.getElementById("copyLabel");
+    const toast = document.getElementById("toast");
+    let toastTimer;
+
+    async function copyServerId() {
+      try {
+        if (navigator.clipboard && window.isSecureContext) {
+          await navigator.clipboard.writeText(serverId);
+        } else {
+          const input = document.createElement("textarea");
+          input.value = serverId;
+          input.style.position = "fixed";
+          input.style.opacity = "0";
+          document.body.appendChild(input);
+          input.select();
+          const ok = document.execCommand("copy");
+          input.remove();
+          if (!ok) throw new Error("copy failed");
+        }
+        copyLabel.textContent = "کپی شد!";
+        toast.textContent = "آیدی TS85.IR کپی شد!";
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => {
+          toast.classList.remove("show");
+          copyLabel.textContent = "برای کپی کلیک کن";
+        }, 2200);
+      } catch (error) {
+        toast.textContent = "کپی خودکار انجام نشد؛ آیدی TS85.IR را دستی کپی کن.";
+        toast.classList.add("show");
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove("show"), 3000);
+      }
+    }
+    copyField.addEventListener("click", copyServerId);
+  </script>
+</body>
+</html>
